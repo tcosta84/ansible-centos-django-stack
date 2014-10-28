@@ -1,6 +1,6 @@
 # ansible-centos-django-stack
 
-An Ansible Playbook for quickly getting a Django Web App up and running on CentOS.
+An Ansible Playbook for quickly getting a <a href="https://github.com/tcosta84/ansible-blog" target="_blank">sample Django Blog appp</a> up and running on CentOS.
 
 This playbook installs and configures the following applications:
 
@@ -16,7 +16,7 @@ This playbook installs and configures the following applications:
     * Flower
     * Django
 
-Tested on CentOS 6.5 x64 with Cloud Providers: Digital Ocean, <a href="https://flutue.com">Flutue</a>
+Tested on CentOS 6.5 x64 with Cloud Providers: Digital Ocean, <a href="https://flutue.com" target="_blank">Flutue</a>
 
 The repository for this sample blog app is the following:
 https://github.com/tcosta84/ansible-blog
@@ -95,5 +95,6 @@ purposes only. When deploying your app, you will have to create your own deploym
 Bitbucket, Stash.
 
 More info:
+
 https://developer.github.com/guides/managing-deploy-keys/#deploy-keys
 https://confluence.atlassian.com/display/BITBUCKET/Use+deployment+keys
