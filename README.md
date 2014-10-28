@@ -59,14 +59,14 @@ Tested on CentOS 6.5 x64 with Cloud Providers: Digital Ocean, <a href="https://f
 
 ## Getting Started
 
-As you may have seen, this project comes with a sample Vagrantfile. This means you can use <a href="https://docs.vagrantup.com/v2/getting-started/index.html" target="_blank">Vagrant</a> and <a href="https://www.virtualbox.org/" target="_blank">VirtualBox</a> to
+As you may have seen, this project comes with a sample Vagrantfile. This means you can use <a href="https://www.vagrantup.com/downloads" target="_blank">Vagrant</a> and <a href="https://www.virtualbox.org/" target="_blank">VirtualBox</a> to
 quickly test this playbook on your local machine without having to sign up for a cloud hosting service.
 
 To get started, first you need to checkout this repository on your local machine:
 
     git clone https://github.com/tcosta84/ansible-centos-django-stack.git
 
-Also make sure you have both Vagrant and VirtualBox installed and run the following command:
+Also make sure you have both Vagrant and VirtualBox *latest versions* installed and run the following command:
 
     cd ansible-centos-django-stack && vagrant up
 
