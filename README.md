@@ -64,7 +64,7 @@ quickly test this playbook on your local machine without having to sign up for a
 
 To get started, first you need to checkout this repository on your local machine:
 
-    git clone git@github.com:tcosta84/ansible-centos-django-stack.git
+    git clone https://github.com/tcosta84/ansible-centos-django-stack.git
 
 Also make sure you have both Vagrant and VirtualBox installed and run the following command:
 
