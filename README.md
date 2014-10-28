@@ -59,7 +59,7 @@ Tested on CentOS 6.5 x64 with Cloud Providers: Digital Ocean, <a href="https://f
 
 To get started, first you need to checkout this repository on your local machine:
 
-git clone git@github.com:tcosta84/ansible-centos-django-stack.git
+   git clone git@github.com:tcosta84/ansible-centos-django-stack.git
 
 As you can see, this project comes with a sample Vagrantfile. This means you can use Vagrant and VirtualBox to
 quickly test this playbook on your local machine.
@@ -73,7 +73,7 @@ Wait a few minutes and go to http://192.168.33.10 and you will see a simple blog
 You should also be able to access the following URLs:
 
 * http://192.168.33.10:9001 (Supervisor)
-* http://192.168.33.10:5555</a> (Flower)
+* http://192.168.33.10:5555 (Flower)
 * http://192.168.33.10:15672 (RabbitMQ)
 
 Really impressive, uh?
