@@ -1,6 +1,6 @@
 # ansible-centos-django-stack
 
-An Ansible Playbook for quickly getting a <a href="https://github.com/tcosta84/ansible-blog" target="_blank">sample Django Blog appp</a> up and running on CentOS.
+An Ansible Playbook for quickly getting a <a href="https://github.com/tcosta84/ansible-blog" target="_blank">sample Django Blog app</a> up and running on CentOS.
 
 This playbook installs and configures the following applications:
 
@@ -17,9 +17,6 @@ This playbook installs and configures the following applications:
     * Django
 
 Tested on CentOS 6.5 x64 with Cloud Providers: Digital Ocean, <a href="https://flutue.com" target="_blank">Flutue</a>
-
-The repository for this sample blog app is the following:
-https://github.com/tcosta84/ansible-blog
 
 ## Requirements
 
@@ -60,10 +57,14 @@ https://github.com/tcosta84/ansible-blog
 
 ## Getting Started
 
-This project comes with a sample Vagrantfile. This means you can use Vagrant and VirtualBox to
+To get started, first you need to checkout this repository on your local machine:
+
+git clone git@github.com:tcosta84/ansible-centos-django-stack.git
+
+As you can see, this project comes with a sample Vagrantfile. This means you can use Vagrant and VirtualBox to
 quickly test this playbook on your local machine.
 
-Just run the following command:
+Make sure you have both <a href="https://docs.vagrantup.com/v2/getting-started/index.html" target="_blank">Vagrant</a> and <a href="https://www.virtualbox.org/" target="_blank">VirtualBox</a> installed and run the following command:
 
     vagrant up
 
@@ -72,7 +73,7 @@ Wait a few minutes and go to http://192.168.33.10 and you will see a simple blog
 You should also be able to access the following URLs:
 
 * http://192.168.33.10:9001 (Supervisor)
-* http://192.168.33.10:5555 (Flower)
+* http://192.168.33.10:5555</a> (Flower)
 * http://192.168.33.10:15672 (RabbitMQ)
 
 Really impressive, uh?
