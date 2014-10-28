@@ -18,6 +18,9 @@ This playbook installs and configures the following applications:
 
 Tested on CentOS 6.5 x64 with Cloud Providers: Digital Ocean, <a href="https://flutue.com">Flutue</a>
 
+The repository for this sample blog app is the following:
+https://github.com/tcosta84/ansible-blog
+
 ## Requirements
 
 ### Ansible
