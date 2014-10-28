@@ -1,6 +1,6 @@
 # ansible-centos-django-stack
 
-An Ansible Playbook for quickly getting a <a href="https://github.com/tcosta84/ansible-blog" target="_blank">sample Django Blog app</a> up and running on CentOS.
+An Ansible Playbook for quickly getting any Django web app up and running on CentOS.
 
 This playbook installs and configures the following applications:
 
@@ -15,6 +15,8 @@ This playbook installs and configures the following applications:
     * Celery
     * Flower
     * Django
+
+For demonstration purposes only, this playbook deploys a <a href="https://github.com/tcosta84/ansible-blog" target="_blank">sample Django Blog app</a> but the main purpose of this project is that you are able to deploy any Django web app.
 
 Tested on CentOS 6.5 x64 with Cloud Providers: Digital Ocean, <a href="https://flutue.com" target="_blank">Flutue</a>
 
@@ -84,7 +86,7 @@ If you already have a Cloud Hosting account and want to test this playbook there
 
 Then, all you have to do is run the following command:
 
-    ansible-playbook -i hosts/{{ environment }} site.yml
+    ansible-playbook -i hosts/{{ environment }} site.yml --ask-pass
 
 ## Playing with your own web app
 
