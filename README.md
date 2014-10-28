@@ -42,7 +42,7 @@ Tested on CentOS 6.5 x64 with Cloud Providers: Digital Ocean, <a href="https://f
 
 ##### Ubuntu
 
-    apt-get install sshpass
+    sudo apt-get install sshpass
 
 ##### Mac
 
@@ -57,16 +57,16 @@ Tested on CentOS 6.5 x64 with Cloud Providers: Digital Ocean, <a href="https://f
 
 ## Getting Started
 
+As you may have seen, this project comes with a sample Vagrantfile. This means you can use <a href="https://docs.vagrantup.com/v2/getting-started/index.html" target="_blank">Vagrant</a> and <a href="https://www.virtualbox.org/" target="_blank">VirtualBox</a> to
+quickly test this playbook on your local machine without having to sign up for a cloud hosting service.
+
 To get started, first you need to checkout this repository on your local machine:
 
-   git clone git@github.com:tcosta84/ansible-centos-django-stack.git
+    git clone git@github.com:tcosta84/ansible-centos-django-stack.git
 
-As you can see, this project comes with a sample Vagrantfile. This means you can use Vagrant and VirtualBox to
-quickly test this playbook on your local machine.
+Also make sure you have both Vagrant and VirtualBox installed and run the following command:
 
-Make sure you have both <a href="https://docs.vagrantup.com/v2/getting-started/index.html" target="_blank">Vagrant</a> and <a href="https://www.virtualbox.org/" target="_blank">VirtualBox</a> installed and run the following command:
-
-    vagrant up
+    cd ansible-centos-django-stack && vagrant up
 
 Wait a few minutes and go to http://192.168.33.10 and you will see a simple blog app up and running!
 
@@ -80,8 +80,7 @@ Really impressive, uh?
 
 ## Playing on a real cloud server
 
-Just edit the hosts/{{ environment }} file with your hosts information and edit the group_vars/all
-file with your app settings.
+If you already have a Cloud Hosting account and want to test this playbook there, go ahead and just edit the hosts/production file with your hosts information and edit the group_vars/producrion.
 
 Then, all you have to do is run the following command:
 
