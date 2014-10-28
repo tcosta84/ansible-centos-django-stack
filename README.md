@@ -87,6 +87,12 @@ If you already have a Cloud Hosting account and want to test this playbook there
 Then, all you have to do is run the following command:
 
     ansible-playbook -i hosts/{{ environment }} site.yml --ask-pass
+    
+PS: Some Cloud providers' VPSs come with iptables firewall enabled blocking all the traffic. In this case you will have to set up some rules in order to test this playbook. If you don't mind opening all ports, you can flush the firewall rules by running the following command:
+
+    iptables -F
+
+Just to make sure of this, we can flush the firewall rules - that is, erase them all:
 
 ## Playing with your own web app
 
