@@ -22,7 +22,7 @@ Tested on CentOS 6.5 x64 with Cloud Providers: Digital Ocean, <a href="https://f
 
 ## Requirements
 
-### Ansible
+### Ansible (v1.6.10 )
 
 #### Installation
 
@@ -38,7 +38,7 @@ Tested on CentOS 6.5 x64 with Cloud Providers: Digital Ocean, <a href="https://f
     brew update
     brew install ansible
 
-### SSHPass
+### SSHPass (v.1.05)
 
 #### Installation
 
@@ -66,7 +66,7 @@ To get started, first you need to checkout this repository on your local machine
 
     git clone https://github.com/tcosta84/ansible-centos-django-stack.git
 
-Also make sure you have both Vagrant and VirtualBox *latest versions* installed and run the following command:
+Also make sure you have both Vagrant (v1.6.3) and VirtualBox (v4.3.18) or *latest versions* installed and run the following command:
 
     cd ansible-centos-django-stack && vagrant up
 
