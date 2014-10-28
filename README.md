@@ -22,7 +22,7 @@ Tested on CentOS 6.5 x64 with Cloud Providers: Digital Ocean, <a href="https://f
 
 ## Requirements
 
-### Ansible (v1.6.10 )
+### Ansible (v1.6.10)
 
 #### Installation
 
@@ -92,17 +92,15 @@ PS: Some Cloud providers' VPSs come with iptables firewall enabled blocking all 
 
     iptables -F
 
-Just to make sure of this, we can flush the firewall rules - that is, erase them all:
-
 ## Playing with your own web app
 
 If you want to test your own web app, just edit the groups_vars/all file with your app settings.
 
-Pay attention to the repo_deploy_key setting. The one on group_vars/all is for demonstration
+Pay attention to the "repo_deploy_key" setting. The one on group_vars/all is for demonstration
 purposes only. When deploying your app, you will have to create your own deployment key on Github, 
-Bitbucket, Stash.
+Bitbucket, Stash etc.
 
-More info:
+More info about deployment keys below:
 
 https://developer.github.com/guides/managing-deploy-keys/#deploy-keys
 https://confluence.atlassian.com/display/BITBUCKET/Use+deployment+keys
