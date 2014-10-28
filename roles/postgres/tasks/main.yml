@@ -1,0 +1,5 @@
+---
+
+- include: install_postgres.yml
+- include: configure_postgres.yml
+- include: create_database.yml

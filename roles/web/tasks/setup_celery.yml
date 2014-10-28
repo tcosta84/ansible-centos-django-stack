@@ -1,0 +1,29 @@
+---
+- name: Celery | Ensure Celery is installed
+  pip: name=celery virtualenv={{ virtualenv_dir }} state=present
+
+- name: Celery | Ensure start file is installed
+  template: src=celery_start.j2 dest={{ virtualenv_dir }}/bin/celery_start 
+            owner={{ app_user }} group={{ app_group }} mode=0755 backup=yes
+  notify: restart supervisor programs
+
+- name: Celery | Add Celery to Supervisor
+  template: src=supervisor_celery.j2 dest={{ supervisor_programs_dir }}/celery.conf
+  notify:
+    - reread supervisor
+    - update supervisor
+
+- name: Celery Beat | Ensure schedule dir is present
+  file: dest={{ celery_beat_schedule_dir }} owner={{ app_user }} group={{ app_group }}
+        state=directory
+
+- name: Celery Beat | Ensure start file is installed
+  template: src=celery_beat_start.j2 dest={{ virtualenv_dir }}/bin/celery_beat_start 
+            owner={{ app_user }} group={{ app_group }} mode=0755 backup=yes
+  notify: restart supervisor programs
+
+- name: Celery Beat | Add Celery Beat to Supervisor
+  template: src=supervisor_celery_beat.j2 dest={{ supervisor_programs_dir }}/celery_beat.conf
+  notify:
+    - reread supervisor
+    - update supervisor

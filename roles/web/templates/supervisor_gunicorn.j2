@@ -1,0 +1,19 @@
+[program:gunicorn]
+command = {{ virtualenv_dir }}/bin/gunicorn_start 
+
+user = {{ app_user }}
+numprocs = 1
+stdout_logfile = {{ gunicorn_stdout_logfile }}
+stderr_logfile = {{ gunicorn_stderr_logfile }}
+autostart = true
+autorestart = true
+startsecs = 10
+
+; Need to wait for currently executing tasks to finish at shutdown.
+; Increase this if you have very long running tasks.
+stopwaitsecs = 600
+
+; When resorting to send SIGKILL to the program to terminate it
+; send SIGKILL to its whole process group instead,
+; taking care of its children as well.
+killasgroup = true

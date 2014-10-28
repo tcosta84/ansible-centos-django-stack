@@ -1,0 +1,13 @@
+---
+
+- name: Update postgresql.conf file
+  sudo: yes
+  sudo_user: postgres
+  copy: src=postgresql.conf dest=/var/lib/pgsql/9.3/data/postgresql.conf backup=yes
+  notify: restart postgres
+
+- name: Update pg_hba.conf file
+  sudo: yes
+  sudo_user: postgres
+  copy: src=pg_hba.conf dest=/var/lib/pgsql/9.3/data/pg_hba.conf backup=yes
+  notify: reload postgres

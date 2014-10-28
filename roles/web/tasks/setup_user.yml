@@ -1,0 +1,10 @@
+---
+
+- name: Ensure group is created
+  group: name={{ app_group }} system=yes state=present
+
+- name: Ensure user is created
+  user: name={{ app_user }} password={{ app_pass }} system=yes group={{ app_group }} state=present
+
+- name: Update sudoers
+  template: src=sudoers.j2 dest=/etc/sudoers backup=yes

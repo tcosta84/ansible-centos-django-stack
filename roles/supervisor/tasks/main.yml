@@ -1,0 +1,20 @@
+---
+
+- name: Ensure package is installed
+  pip: name=supervisor state=present
+
+- name: Ensure programs directory is created
+  file: dest={{ supervisor_programs_dir }} state=directory
+
+- name: Ensure logs directory is created
+  file: dest={{ supervisor_childlogdir }} state=directory
+
+- name: Install config file
+  template: src=supervisord.j2 dest=/etc/supervisord.conf
+  notify: reload supervisor
+
+- name: Install init script
+  template: src=init_script.j2 dest=/etc/init.d/supervisord mode=0755
+
+- name: Ensure Supervisor is started and that it always starts on boot
+  service: name=supervisord enabled=yes state=started

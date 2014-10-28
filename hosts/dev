@@ -1,0 +1,17 @@
+[webservers]
+192.168.33.10
+
+[dbservers]
+192.168.33.10
+
+[memcachedservers]
+192.168.33.10
+
+[rabbitmqservers]
+192.168.33.10
+
+[dev:children]
+webservers
+dbservers
+memcachedservers
+rabbitmqservers

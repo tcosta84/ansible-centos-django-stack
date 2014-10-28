@@ -1,0 +1,11 @@
+#!/bin/sh
+
+cd {{ django_base_dir }}
+
+source {{ virtualenv_dir }}/bin/activate
+source {{ virtualenv_dir }}/bin/postactivate
+
+exec celery flower -A {{ django_project_module }} \
+    --loglevel=debug \
+    --basic_auth={{ flower_user }}:{{ flower_pass }} \
+    {% if flower_persistent_mode %}--persistent=True --db={{ flower_db_file }}{% endif %}

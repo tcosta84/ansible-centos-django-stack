@@ -1,0 +1,9 @@
+---
+
+- name: Check if pip is already installed
+  stat: path=/usr/local/bin/pip2.7
+  register: pip
+
+- name: Install PIP
+  easy_install: name=pip
+  when: not pip.stat.exists

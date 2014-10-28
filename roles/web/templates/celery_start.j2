@@ -1,0 +1,11 @@
+#!/bin/sh
+
+cd {{ django_base_dir }}
+
+source {{ virtualenv_dir }}/bin/activate
+source {{ virtualenv_dir }}/bin/postactivate
+
+exec celery worker -A {{ django_project_module }} \
+    --concurrency {{ celery_num_workers }} \
+    --loglevel=debug \
+    {% if celery_autoreload %}--autoreload{% endif %}

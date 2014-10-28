@@ -1,0 +1,17 @@
+---
+- name: Flower | Ensure Flower is installed
+  pip: name=flower virtualenv={{ virtualenv_dir }} state=present
+
+- name: Flower | Ensure db dir is present
+  file: dest={{ flower_db_dir }} owner={{ app_user }} group={{ app_group }} state=directory
+
+- name: Flower | Ensure start file is installed
+  template: src=flower_start.j2 dest={{ virtualenv_dir }}/bin/flower_start 
+            owner={{ app_user }} group={{ app_group }} mode=0755 backup=yes
+  notify: restart supervisor programs
+
+- name: Flower | Add Flower to Supervisor
+  template: src=supervisor_flower.j2 dest={{ supervisor_programs_dir }}/flower.conf
+  notify:
+    - reread supervisor
+    - update supervisor

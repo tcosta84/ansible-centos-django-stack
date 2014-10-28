@@ -1,0 +1,9 @@
+[webservers]
+104.131.96.178
+
+[dbservers]
+104.131.96.178
+
+[staging:children]
+webservers
+dbservers

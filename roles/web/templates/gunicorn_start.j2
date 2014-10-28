@@ -1,0 +1,13 @@
+#!/bin/sh
+
+cd {{ django_base_dir }}
+
+source {{ virtualenv_dir }}/bin/activate
+source {{ virtualenv_dir }}/bin/postactivate
+
+exec gunicorn {{ django_project_module }}.wsgi:application \
+    --workers {{ gunicorn_num_workers }} \
+    --worker-class 'gevent' \
+    --bind=unix:{{ gunicorn_sock_file }} \
+    --max-requests {{ gunicorn_max_requests }} \
+    --log-level=debug

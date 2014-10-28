@@ -1,0 +1,14 @@
+---
+
+- name: Install postgresql-devel
+  yum: name=postgresql-devel state=present
+  tags:
+    - deploy
+  
+- include: setup_user.yml           tags=deploy
+- include: setup_virtualenv.yml     tags=deploy
+- include: setup_app.yml            tags=deploy
+- include: setup_gunicorn.yml       tags=deploy
+- include: setup_celery.yml         tags=deploy
+- include: setup_flower.yml         tags=deploy
+- include: setup_nginx.yml          tags=deploy

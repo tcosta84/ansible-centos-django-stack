@@ -1,0 +1,4 @@
+---
+
+gunicorn_max_requests:      "0"
+celery_autoreload:          "false"

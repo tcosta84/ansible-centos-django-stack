@@ -1,0 +1,44 @@
+---
+
+- name: Ensure compat-libevent14 is not installed
+  yum: name=compat-libevent14 state=absent
+
+- name: Ensure dependencies are installed
+  yum: name={{ item }} state=present
+  with_items:
+    - libevent
+    - libevent-devel
+
+- name: Check if service is already installed
+  stat: path=/usr/local/bin/memcached
+  register: memcached
+
+- name: Download version 1.4.21
+  get_url: url=http://www.memcached.org/files/memcached-1.4.21.tar.gz
+           dest=/tmp/memcached-1.4.21.tar.gz
+  when: not memcached.stat.exists
+
+- name: Unpack
+  unarchive: src=/tmp/memcached-1.4.21.tar.gz dest=/tmp copy=no
+  when: not memcached.stat.exists
+
+- name: Configure, compile and install
+  shell: cd /tmp/memcached-1.4.21 && {{ item }}
+  with_items:
+    - ./configure --enable-64bit
+    - make
+    - make install
+  when: not memcached.stat.exists
+
+- name: Ensure user is created
+  user: name=memcached system=yes state=present
+
+- name: Ensure run directory is created
+  file: dest=/var/run/memcached state=directory
+
+- name: Install init script
+  template: src=init_script.j2 dest=/etc/init.d/memcached mode=0755
+  notify: restart memcached
+
+- name: Ensure service is started and that it always starts on boot
+  service: name=memcached enabled=yes state=started

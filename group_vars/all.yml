@@ -1,0 +1,135 @@
+---
+
+# App settings
+
+app_name:                   "ansible_blog"
+app_user:                   "ansible_blog"
+app_group:                  "webapps"
+app_pass:                   "12345"
+
+# Virtualenv settings
+
+virtualenv_dir:             "/var/www/{{ app_name }}"
+
+source_dir:                 "{{ virtualenv_dir }}/src"
+static_dir:                 "{{ virtualenv_dir }}/static/" # trailing slash is necessary
+media_dir:                  "{{ virtualenv_dir }}/media/" # trailing slash is necessary
+logs_dir:                   "{{ virtualenv_dir }}/logs"
+
+# GIT repository settings
+
+repo_url:                   "git@github.com:tcosta84/ansible-blog.git"
+repo_branch:                "master"
+repo_deploy_key: |
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEpAIBAAKCAQEAtUfE9jsOZiO14eiVHJowFbmTx9q6mvKw8A5PBgPYUgqAhGE/
+    UuDENgFofUfjDpdqi3fe4vBKqCuw2KpuJ2TR9ADkUmDlAsccjNhok4n9QtmhSIOk
+    Yo5PR5c/C4YXjKpKf5QOTVdT+cP+mXe+Y8c+DnTyve/rmXNd6MsmyfKLoPOlGjxd
+    rw0Gl7VxaAiTmoNcoTouw8kYGpYgM+hB3ABzvGflgRA5F5nqzkPBLlyPKWrH4n4a
+    SV13dF59YFdBPub6HGgj2AFB0oGwJ/AGedfURFW0rHMGN7N/tBbqsXQngvlBngM2
+    YY7QvU7irrpah1CzcTt7AOLoW5WYOZmRij5NoQIDAQABAoIBAQCycfNwbrG92Wkw
+    98HQZfbva74M/UKzRDLoGy2uvhoyqCPaK+AptRdwEfLJX/oiYup+X4EH44GaCWgL
+    37iPDq+dgUM/1CGammWAP4axtSOYqqIYv30RhwSDdF6a+WQ1E2xCKXvqpgwD0OrO
+    JxFDJt3vXS+VyJYid235ugB0ykyoIYYOttrNO7tPXRf/eA9fsqf7caYJFzHT9Zc9
+    eJj9FLGIXEzYzHoeOh51RXKfRc2A7YvWs/0aUVAFAWH544s1b4H0SbVjIcPT6S4O
+    xhtapq5tzHjxjjHIwfgSuQCAk2LuGA//tu3PvFP0nuHcpUQSktnpb5RshwUgmwZv
+    p63F9fABAoGBAN5ttME1Af6rxS6fdLUe+AVMh7athI4EM7v0ztb4D1mLbQciKFE/
+    HGyOCtIhU+RkWBMCk10jNjpgDXT0neQr210AUIOcs60J5EF0nu+usrC0mRJv8h5E
+    3hK22eXS1GEYNkUXso45aQpL3WYxC5j5ppXlojyeCzpvmNVJdivuzrAfAoGBANCk
+    KTlpsx/AKL1WOmnRH6DMd+xs4cQTLigbexsvcWzeo6xh2l7JjYGeTVjPWYFYpfUc
+    nbU4ILisX9zBzCMSDOrvmgANwDhhU0QQ0vQftVtabHrhC/C/EqD4eOEV6QfvWlvs
+    IPvwnYGtbpp6GUr7irNmvEzAMaQdIS2P9IzKiEo/AoGAZSt/KNYkdyLICGHM4skY
+    RMi/fe7EuRfeNCKwpgSkbrVFPRZjQjkzg4jEETnJf7vId7UXNCjc9IZV+Jl+65ar
+    K00GUibHbvBt2vvhguFyM3+hlEpI1U27uMVkrO1NXnB11s1lkN06Es3ZAS9TuBvt
+    koalWW8FamnyGSlVz7vKVT8CgYEAtnwu1ll94zJmL5xAwRa4zCKqbW6aVK3V/Bx1
+    I0TutyNQEtEPd0Jgc1NrIVdSWNCZbvaVddBexkd2HRagHriF9eKVVqCwVF/DvU/d
+    wsoNDJbdNOirUek9OO+6glxwkpEl/ipcex9sE+UGTTSn9K5oFRuxbIvZn0ofH8O+
+    SHpIlG8CgYBYcoKrC7kuTiaFeBTdJ7hrm5+RY0/jw3nx5NBLBz9pkZApxVqdAcjT
+    VnXbTDUcLI1O37cqk+Pm5EdZBlaWJHALPPDuE5wE/2Bwdzh9eWdXyMeoeQI/GGub
+    ilxsmHf0CNMnQeBB1aagHo9+1SYXJU4Bb2X/73Uj02gSUcRVmGzp7g==
+    -----END RSA PRIVATE KEY-----
+
+# Django app settings
+
+django_base_dir:            "{{ source_dir }}" # where manage.py is located
+django_project_module:      "ansible_blog"
+django_settings_module:     "{{ django_project_module }}.settings"
+django_fixtures:            "core/fixtures/samples.json" # a space-delimited list of fixture file names
+
+requirements_file:          "{{ source_dir }}/requirements.pip"
+
+# Database settings
+
+db_host:                    "192.168.33.10"
+db_name:                    "ansible_blog"
+db_user:                    "postgres"
+db_pass:                    "postgres"
+
+# Nginx settings
+
+nginx_server_name:          "localhost"
+
+# Memcached settings
+
+memcached_host:             "192.168.33.10"
+memcached_port:             "11211"
+
+# RabbitMQ settings
+
+rabbitmq_host:              "192.168.33.10"
+rabbitmq_admin_user:        "admin"
+rabbitmq_admin_pass:        "12345"
+rabbitmq_app_vhost:         "{{ app_name }}"
+rabbitmq_app_user:          "{{ app_name }}"
+rabbitmq_app_pass:          "12345"
+
+# Supervisor settings
+
+supervisor_childlogdir:     "/var/log/supervisor/"
+supervisor_logfile:         "/var/log/supervisor/supervisor.log"
+supervisor_programs_dir:    "/etc/supervisor/conf.d/"
+
+# Gunicorn settings
+
+gunicorn_sock_dir:          "{{ virtualenv_dir }}/run"
+gunicorn_sock_file:         "{{ gunicorn_sock_dir }}/gunicorn.sock"
+gunicorn_max_requests:      "1"
+gunicorn_num_workers:       "2"
+gunicorn_stdout_logfile:    "{{ logs_dir }}/gunicorn.log"
+gunicorn_stderr_logfile:    "{{ logs_dir }}/gunicorn-error.log"
+
+# Celery settings
+
+celery_num_workers:         "2"
+celery_autoreload:          "false"
+celery_stdout_logfile:      "{{ logs_dir }}/celery.log"
+celery_stderr_logfile:      "{{ logs_dir }}/celery-error.log"
+
+# Celery Beat settings
+
+celery_beat_schedule_dir:   "{{ virtualenv_dir }}/db"
+celery_beat_schedule_file:  "{{ celery_beat_schedule_dir }}/celerybeat-schedule"
+celery_beat_stdout_logfile: "{{ logs_dir }}/celerybeat.log"
+celery_beat_stderr_logfile: "{{ logs_dir }}/celerybeat-error.log"
+
+# Flower settings
+
+flower_db_dir:              "{{ virtualenv_dir }}/db"
+flower_db_file:             "{{ flower_db_dir }}/flower"
+flower_persistent_mode:     "true"
+flower_stdout_logfile:      "{{ logs_dir }}/flower.log"
+flower_stderr_logfile:      "{{ logs_dir }}/flower-error.log"
+flower_user:                "admin"
+flower_pass:                "12345"
+
+# Environment variables
+
+envvars:
+    DEBUG:                  "True"
+    SECRET_KEY:             "oh8b$!qg(j5-q)0^6awq4#n$a%3he@fa69_0&4=p6r@2%a1*js"
+    DATABASE_URL:           "postgres://{{ db_user }}:{{ db_pass }}@{{ db_host }}:5432/{{ db_name }}"
+    STATIC_ROOT:            "{{ static_dir }}"
+    MEDIA_ROOT:             "{{ media_dir }}"
+    LOGS_DIR:               "{{ logs_dir }}"
+    RABBITMQ_URL:           "amqp://{{ rabbitmq_app_user }}:{{ rabbitmq_app_pass }}@{{ rabbitmq_host }}:5672/{{ rabbitmq_app_vhost }}"
+    MEMCACHED_LOCATION:     "{{ memcached_host }}:{{ memcached_port }}"

@@ -1,0 +1,28 @@
+---
+
+- name: Virtualenv | Ensure virtualenv is installed
+  pip:
+    name=virtualenv
+    state=present
+
+- name: Virtualenv | Ensure virtualenv is created
+  command:
+    virtualenv {{ virtualenv_dir }} --no-site-packages
+    creates={{ virtualenv_dir }}/bin/activate
+
+- name: Virtualenv | Ensure postactivate script is installed
+  template: src=virtualenv_postactivate.j2 dest={{ virtualenv_dir }}/bin/postactivate
+            owner={{ app_user }} group={{ app_group }} backup=yes mode=0640
+  notify: restart supervisor programs
+
+- name: Virtualenv | Ensure postactivate script is executed on the activate script
+  lineinfile: dest={{ virtualenv_dir }}/bin/activate line=". postactivate" insertafter="EOF" 
+              state=present
+
+- name: Virtualenv | Ensure virtualenv has the right permissions
+  file:
+    path={{ virtualenv_dir }}
+    recurse=yes
+    owner={{ app_user }}
+    group={{ app_group }}
+    state=directory

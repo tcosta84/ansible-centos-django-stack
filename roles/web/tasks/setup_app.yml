@@ -1,0 +1,50 @@
+---
+
+- name: Ensure .ssh, source, static, media and logs directories exist
+  file: dest={{ item }} mode=755 owner={{ app_user }} group={{ app_group }} state=directory
+  with_items:
+    - "/home/{{ app_user }}/.ssh"
+    - "{{ source_dir }}"
+    - "{{ static_dir }}"
+    - "{{ media_dir }}"
+    - "{{ logs_dir }}"
+
+- name: Ensure git deploy key is installed
+  copy: content="{{ repo_deploy_key }}" dest=/home/{{ app_user }}/.ssh/deploy_key mode=0600 
+        group={{ app_group }} owner={{ app_user }}
+
+- name: Pull source from GIT repository
+  sudo: yes
+  sudo_user: "{{ app_user }}"
+  git: repo={{ repo_url }} dest={{ source_dir }} version={{ repo_branch }} force=yes update=yes 
+       accept_hostkey=yes key_file=/home/{{ app_user }}/.ssh/deploy_key
+  notify: restart supervisor programs
+
+- name: Ensure virtualenv build dir is not present
+  file: dest={{ virtualenv_dir }}/build state=absent
+
+- name: Update requirements
+  sudo: yes
+  sudo_user: "{{ app_user }}"
+  pip: requirements={{ requirements_file }} virtualenv={{virtualenv_dir }}
+
+- name: Run database migrations
+  sudo: yes
+  sudo_user: "{{ app_user }}"
+  django_manage: command=migrate app_path={{ django_base_dir }} virtualenv={{ virtualenv_dir }}
+  environment: "{{ envvars }}"
+
+- name: Collect static files
+  sudo: yes
+  sudo_user: "{{ app_user }}"
+  django_manage: command=collectstatic app_path={{ django_base_dir }} 
+                 virtualenv={{ virtualenv_dir }}
+  environment: "{{ envvars }}"
+
+- name: Load fixtures
+  sudo: yes
+  sudo_user: "{{ app_user }}"
+  django_manage: command=loaddata fixtures="{{ django_fixtures }}" app_path={{ django_base_dir }} 
+                 virtualenv={{ virtualenv_dir }}
+  environment: "{{ envvars }}"
+  when: django_fixtures is defined and django_fixtures|length > 0

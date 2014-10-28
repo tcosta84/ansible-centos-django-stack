@@ -1,0 +1,33 @@
+---
+
+- name: Ensure psycopg2 is installed
+  yum: name=python-psycopg2 state=present
+
+- name: Ensure Postgres is not installed from the default YUM repo
+  ini_file: dest=/etc/yum.repos.d/CentOS-Base.repo section="{{ item }}" option="exclude" 
+            value="postgresql*" backup=yes
+  with_items:
+    - base
+    - updates
+
+- name: Ensure Postgres repository RPM is installed
+  yum: name=http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-1.noarch.rpm 
+       state=present
+
+- name: Ensure Postgres and extra packages are installed
+  yum: name={{ item }} state=present
+  with_items:
+    - postgresql93
+    - postgresql93-server
+    - postgresql93-devel
+    - postgresql93-libs
+    - postgresql93-contrib
+
+- name: Ensure symlink for pg_config is installed
+  file: src=/usr/pgsql-9.3/bin/pg_config dest=/bin/pg_config state=link
+
+- name: Initialize database
+  command: service postgresql-9.3 initdb creates=/var/lib/pgsql/9.3/data/postgresql.conf
+
+- name: Ensure Postgres is started and that it always starts on boot
+  service: name=postgresql-9.3 state=started enabled=yes

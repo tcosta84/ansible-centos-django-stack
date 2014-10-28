@@ -1,0 +1,20 @@
+---
+- name: Gunicorn | Ensure gevent is installed
+  pip: name=gevent virtualenv={{ virtualenv_dir }} state=present
+
+- name: Gunicorn | Ensure Gunicorn is installed
+  pip: name=gunicorn virtualenv={{ virtualenv_dir }} state=present
+
+- name: Gunicorn | Ensure sock dir is present
+  file: dest={{ gunicorn_sock_dir }} owner={{ app_user }} group={{ app_group }} state=directory
+
+- name: Gunicorn | Ensure start file is installed
+  template: src=gunicorn_start.j2 dest={{ virtualenv_dir }}/bin/gunicorn_start 
+            owner={{ app_user }} group={{ app_group }} mode=0755 backup=yes
+  notify: restart supervisor programs
+
+- name: Gunicorn | Add Gunicorn to Supervisor
+  template: src=supervisor_gunicorn.j2 dest={{ supervisor_programs_dir }}/gunicorn.conf
+  notify:
+    - reread supervisor
+    - update supervisor

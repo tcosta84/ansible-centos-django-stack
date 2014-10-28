@@ -1,0 +1,14 @@
+---
+
+- name: Ensure default virtual host does not exist
+  file: dest=/etc/nginx/sites-enabled/default state=absent
+
+- name: Ensure virtual host is available
+  template: src=nginx_vhost.j2 dest=/etc/nginx/sites-available/{{ app_name }} backup=yes
+  notify: reload nginx
+
+- name: Ensure virtual host is enabled
+  file: dest=/et/nginx/sites-
+  file: src=/etc/nginx/sites-available/{{ app_name }} 
+        dest=/etc/nginx/sites-enabled/{{ app_name }} state=link
+  notify: reload nginx

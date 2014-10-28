@@ -1,0 +1,33 @@
+---
+
+- name: Ensure dependencies are installed
+  yum: name={{ item }} state=present
+  with_items:
+    - zlib-devel
+    - bzip2-devel
+    - openssl-devel
+    - ncurses-devel
+    - readline-devel
+    - pcre-devel
+    - curl-devel
+
+- name: Check if python is already installed
+  stat: path=/usr/local/bin/python2.7
+  register: python
+
+- name: Download Python
+  get_url: url=https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz 
+           dest=/tmp/Python-2.7.8.tar
+  when: not python.stat.exists
+
+- name: Unpack Python
+  unarchive: src=/tmp/Python-2.7.8.tar dest=/tmp copy=no
+  when: not python.stat.exists
+
+- name: Configure, compile and install Python
+  shell: cd /tmp/Python-2.7.8 && {{ item }}
+  with_items:
+    - ./configure
+    - make
+    - make altinstall
+  when: not python.stat.exists

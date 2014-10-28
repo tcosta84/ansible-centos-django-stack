@@ -1,0 +1,49 @@
+---
+
+- name: Ensure Epel is installed
+  yum: name=http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm 
+       state=present
+
+- name: Ensure Erlang repo is installed
+  get_url: url=http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo 
+           dest=/etc/yum.repos.d/epel-erlang.repo
+
+- name: Ensure Erlang is installed
+  yum: name=erlang state=present
+
+- name: Ensure RabbitMQ RPM key is present
+  rpm_key: key=http://www.rabbitmq.com/rabbitmq-signing-key-public.asc 
+           state=present
+
+- name: Ensure RabbitMQ is installed
+  yum:
+    name=http://www.rabbitmq.com/releases/rabbitmq-server/v3.3.5/rabbitmq-server-3.3.5-1.noarch.rpm
+    state=present
+
+- name: Ensure rabbitmq management plugin is enabled
+  rabbitmq_plugin: names=rabbitmq_management state=enabled
+
+- name: Ensure RabbitMQ is started and that it always starts on boot
+  service: name=rabbitmq-server enabled=yes state=started
+
+- name: Ensure admin user is created
+  rabbitmq_user: user={{ rabbitmq_admin_user }} password={{ rabbitmq_admin_pass }} 
+                tags=administrator state=present
+  notify: restart rabbitmq
+
+- name: Ensure the default "guest" user does not exist
+  rabbitmq_user: user=guest state=absent
+  notify: restart rabbitmq
+
+- name: Ensure application vhost exists
+  rabbitmq_vhost: name={{ rabbitmq_app_vhost }} state=present
+  notify: restart rabbitmq
+
+- name: Ensure application user exists
+  rabbitmq_user: user={{ rabbitmq_app_user }} password={{ rabbitmq_app_pass }}
+                 vhost={{ rabbitmq_app_vhost }}
+                 read_priv=.*
+                 write_priv=.*
+                 configure_priv=.*
+                 state=present
+  notify: restart rabbitmq

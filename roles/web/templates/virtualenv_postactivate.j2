@@ -1,0 +1,5 @@
+#!/bin/sh
+
+{% for var_name, var_value in envvars.iteritems() %}
+export {{ var_name }}="{{ var_value }}"
+{% endfor %}

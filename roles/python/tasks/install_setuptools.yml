@@ -1,0 +1,18 @@
+---
+
+- name: Check if setuptools is already installed
+  stat: path=/usr/local/bin/easy_install-2.7
+  register: setuptools
+
+- name: Download Setuptools
+  get_url: url=https://pypi.python.org/packages/source/s/setuptools/setuptools-5.7.tar.gz 
+           dest=/tmp/setuptools-5.7.tar
+  when: not setuptools.stat.exists
+
+- name: Unpack Setuptools
+  unarchive: src=/tmp/setuptools-5.7.tar dest=/tmp copy=no
+  when: not setuptools.stat.exists
+
+- name: Install Setuptools
+  command: /usr/local/bin/python2.7 setup.py install chdir=/tmp/setuptools-5.7
+  when: not setuptools.stat.exists
