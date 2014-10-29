@@ -22,7 +22,7 @@ Tested on CentOS 6.5 x64 with Cloud Providers: Digital Ocean, <a href="https://f
 
 ## Requirements
 
-### Ansible
+### Ansible (v1.6.10)
 
 #### Installation
 
@@ -38,7 +38,7 @@ Tested on CentOS 6.5 x64 with Cloud Providers: Digital Ocean, <a href="https://f
     brew update
     brew install ansible
 
-### SSHPass
+### SSHPass (v.1.05)
 
 #### Installation
 
@@ -66,7 +66,7 @@ To get started, first you need to checkout this repository on your local machine
 
     git clone https://github.com/tcosta84/ansible-centos-django-stack.git
 
-Also make sure you have both Vagrant and VirtualBox *latest versions* installed and run the following command:
+Also make sure you have both Vagrant (v1.6.3) and VirtualBox (v4.3.18) or *latest versions* installed and run the following command:
 
     cd ansible-centos-django-stack && vagrant up
 
@@ -87,16 +87,20 @@ If you already have a Cloud Hosting account and want to test this playbook there
 Then, all you have to do is run the following command:
 
     ansible-playbook -i hosts/{{ environment }} site.yml --ask-pass
+    
+PS: Some Cloud providers' VPSs come with iptables firewall enabled blocking all the traffic. In this case you will have to set up some rules in order to test this playbook. If you don't mind opening all ports, you can flush the firewall rules by running the following command:
+
+    iptables -F
 
 ## Playing with your own web app
 
 If you want to test your own web app, just edit the groups_vars/all file with your app settings.
 
-Pay attention to the repo_deploy_key setting. The one on group_vars/all is for demonstration
+Pay attention to the "repo_deploy_key" setting. The one on group_vars/all is for demonstration
 purposes only. When deploying your app, you will have to create your own deployment key on Github, 
-Bitbucket, Stash.
+Bitbucket, Stash etc.
 
-More info:
+More info about deployment keys below:
 
 https://developer.github.com/guides/managing-deploy-keys/#deploy-keys
 https://confluence.atlassian.com/display/BITBUCKET/Use+deployment+keys
