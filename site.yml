@@ -1,27 +1,28 @@
 ---
 
-- hosts: dbservers
+- hosts: all
   remote_user: root
   roles:
     - common
+
+- hosts: dbservers
+  remote_user: root
+  roles:
     - postgres
 
 - hosts: memcachedservers
   remote_user: root
   roles:
-    - common
     - memcached
 
 - hosts: rabbitmqservers
   remote_user: root
   roles:
-    - common
     - rabbitmq
 
 - hosts: webservers
   remote_user: root
   roles:
-    - common
     - python
     - supervisor
     - nginx
